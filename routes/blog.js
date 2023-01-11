@@ -15,7 +15,7 @@ router.get('/getBlogList', function(req, res, next) {
 
     connection.query(sql, function (err, rows, fields) {
         if (err) throw err
-        res.send({code:200,data:rows,total:total,message:'请求成功'});
+        res.send({code:1,data:rows,total:total,message:'请求成功'});
     })
 });
 

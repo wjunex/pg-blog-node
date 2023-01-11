@@ -2,11 +2,48 @@ var express = require('express');
 var router = express.Router();
 var connection = require('./../sql/index.js')
 
-router.get('/getCategoryList', function(req, res, next) {
-    connection.query('SELECT * FROM pgblog.category', function (err, rows, fields) {
-        if (err) throw err
-        res.send({code:200,data:rows,message:'请求成功'});
+
+
+// 增加分类
+router.post('/addCategory', function (req, res, next) {
+    connection.query('INSERT INTO pgblog.category(name) VALUE(?)',[req.body.name], function (err, rows, fields) {
+        if (err) {
+            res.send({code:0,message:'操作失败'})
+        } else {
+            res.send({code:1,message:'操作成功'})
+        }
+    })
+})
+
+// 删除分类
+router.get('/delCategory', function(req, res, next) {
+    connection.query('DELETE FROM pgblog.category WHERE id=?',[req.query.id], function (err, rows, fields) {
+        if (err) {
+            res.send({code:0,data:err, message:'操作失败'})
+        } else {
+            res.send({code:1,message:'操作成功'})
+        }
     })
 });
+
+// 修改分类
+router.post('/updateCategory', function (req, res, next) {
+    connection.query('UPDATE pgblog.category SET name=? WHERE id=?',[req.body.name,req.body.id], function (err, rows, fields) {
+        if (err) {
+            res.send({code:0,message:'操作失败'})
+        } else {
+            res.send({code:1,message:'操作成功'})
+        }
+    })
+})
+
+// 查询分类列表
+router.get('/getCategoryList', function(req, res, next) {
+    connection.query('SELECT * FROM pgblog.category', function (err, rows, fields) {
+        console.log(rows)
+        res.send({code:1,data:rows,message:'请求成功'});
+    })
+});
+
 
 module.exports = router;

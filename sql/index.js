@@ -1,9 +1,9 @@
 var mysql = require('mysql')
 var connection = mysql.createConnection({
-    host: 'localhost',
+    host: '139.9.146.62',
     user: 'root',
     password: '123456',
-    database: 'mysql'
+    database: 'pgblog'
 })
 
 connection.connect()
