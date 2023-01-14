@@ -6,7 +6,9 @@ var connection = require('./../sql/index.js')
 
 // 增加分类
 router.post('/addCategory', function (req, res, next) {
-    connection.query('INSERT INTO pgblog.category(name) VALUE(?)',[req.body.name], function (err, rows, fields) {
+    let create_date = new Date().toLocaleString()
+    console.log(create_date)
+    connection.query('INSERT INTO pgblog.category(name,create_date) VALUE(?,?)',[req.body.name,create_date], function (err, rows, fields) {
         if (err) {
             res.send({code:0,message:'操作失败'})
         } else {
