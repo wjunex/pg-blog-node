@@ -4,6 +4,7 @@ var connection = mysql.createConnection({
     user: 'root',
     password: '123456',
     database: 'pgblog',
+    timezone: '08:00'
 })
 
 connection.connect()
